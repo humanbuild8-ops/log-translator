@@ -1,0 +1,5 @@
+Apr 15 10:01:23 server1 ERROR CPU usage exceeded 90%
+Apr 15 10:02:10 server1 WARNING Disk space low
+Apr 15 10:03:45 server2 INFO Connection established
+Apr 15 10:04:01 server1 ERROR Packet loss detected
+Apr 15 10:05:33 server3 WARNING High latency detected
