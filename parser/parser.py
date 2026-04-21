@@ -1,4 +1,12 @@
-import pandas as pd   # ✅ ADD HERE (top)
+import pandas as pd
+
+def categorize_log(level):
+    if level == "ERROR":
+        return "Critical"
+    elif level == "WARNING":
+        return "Warning"
+    else:
+        return "Info"
 
 logs = []
 
@@ -11,6 +19,7 @@ with open('../data/sample_logs.txt', 'r') as file:
             "time": parts[2],
             "server": parts[3],
             "level": parts[4],
+            "category": categorize_log(parts[4]),  # ✅ NEW
             "message": " ".join(parts[5:])
         }
 
@@ -20,7 +29,7 @@ with open('../data/sample_logs.txt', 'r') as file:
 for log in logs:
     print(log)
 
-# ✅ ADD THIS AT THE END
+# DataFrame
 df = pd.DataFrame(logs)
 print("\nDataFrame Output:\n")
 print(df)
