@@ -103,7 +103,7 @@ st.write(f"Critical Issues: {critical}")
 # -------------------------
 # Filter + Display
 # -------------------------
-st.subheader("Log Analysis")
+st.subheader("🔍 Filtered Log View")
 
 level_filter = st.selectbox("Filter by Level", ["All", "ERROR", "WARNING", "INFO"])
 
@@ -112,12 +112,29 @@ if level_filter != "All":
 else:
     filtered_df = df
 
-st.dataframe(filtered_df[['level', 'category', 'anomaly', 'message', 'explanation']])
+# -------------------------
+# Clean Highlight Function (Readable Colors)
+# -------------------------
+def highlight_rows(row):
+    style = [''] * len(row)
+
+    if row['anomaly'] == 'Anomaly':
+        style = ['background-color: #f8d7da; color: black'] * len(row)   # soft red
+    elif row['category'] == 'Warning':
+        style = ['background-color: #fff3cd; color: black'] * len(row)   # soft yellow
+    elif row['category'] == 'Info':
+        style = ['background-color: #d1e7dd; color: black'] * len(row)   # soft green
+
+    return style
+
+styled_df = filtered_df[['level', 'category', 'anomaly', 'message', 'explanation']].style.apply(highlight_rows, axis=1)
+
+st.dataframe(styled_df)
 
 # -------------------------
 # Show Anomalies
 # -------------------------
-st.subheader("Anomalies Detected")
+st.subheader("🚨 Anomalies Detected")
 
 anomaly_df = df[df['anomaly'] == 'Anomaly']
 
