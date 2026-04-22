@@ -8,7 +8,8 @@ import time
 # -------------------------
 st.title("AI Network Log Translator")
 st.markdown("Convert complex network logs into simple human-readable insights with anomaly detection.")
-
+st.markdown("### 📊 Log Analysis Dashboard")
+st.divider()
 # -------------------------
 # Functions
 # -------------------------
@@ -135,6 +136,23 @@ st.dataframe(styled_df)
 # -------------------------
 # Show Anomalies
 # -------------------------
+def generate_incident_summary(df):
+    total = len(df)
+    critical = len(df[df['category'] == 'Critical'])
+    warnings = len(df[df['category'] == 'Warning'])
+    anomalies = len(df[df['anomaly'] == 'Anomaly'])
+
+    if anomalies > 0:
+        return f"⚠️ {anomalies} anomalies detected. System shows abnormal behavior with {critical} critical issues."
+    elif critical > 0:
+        return f"🚨 {critical} critical issues detected. Immediate attention recommended."
+    elif warnings > 0:
+        return f"⚡ {warnings} warnings detected. Monitor system performance."
+    else:
+        return "✅ System is operating normally with no major issues."
+
+st.subheader("🧠 Incident Summary")
+st.info(generate_incident_summary(df))
 st.subheader("🚨 Anomalies Detected")
 
 anomaly_df = df[df['anomaly'] == 'Anomaly']
