@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from sklearn.ensemble import IsolationForest
+import time
 
 # -------------------------
 # Title
@@ -142,3 +143,11 @@ if anomaly_df.empty:
     st.success("No anomalies detected")
 else:
     st.error(anomaly_df[['level', 'message', 'explanation']])
+
+start = time.time()
+
+# your processing code
+
+end = time.time()
+
+st.write(f"Time to Clarity: {round(end - start, 2)} seconds")
