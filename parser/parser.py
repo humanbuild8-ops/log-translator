@@ -1,5 +1,25 @@
 from sklearn.ensemble import IsolationForest
 import pandas as pd
+def generate_explanation(message, category):
+    message = message.lower()
+
+    if "cpu" in message:
+        return "High CPU usage detected. System performance may degrade."
+    elif "disk" in message:
+        return "Disk space is running low. Cleanup is recommended."
+    elif "packet loss" in message:
+        return "Packet loss detected. Network connectivity issues may occur."
+    elif "latency" in message:
+        return "High latency detected. Users may experience slow responses."
+    elif "crash" in message:
+        return "Service crash detected. Immediate attention is required."
+    else:
+        if category == "Critical":
+            return "Critical issue detected. Immediate action required."
+        elif category == "Warning":
+            return "Potential issue detected. Monitoring recommended."
+        else:
+            return "System is functioning normally."
 
 def categorize_log(level):
     if level == "ERROR":
@@ -50,7 +70,11 @@ df['anomaly'] = df['anomaly'].map({
     -1: 'Anomaly',
     1: 'Normal'
 })
+df['explanation'] = df.apply(
+    lambda row: generate_explanation(row['message'], row['category']),
+    axis=1
+)
 print("\nDataFrame Output:\n")
 print(df)
-print("\nAnomaly Detection Output:\n")
-print(df[['level', 'category', 'anomaly', 'message']])
+print("\nFinal Output with AI Explanation:\n")
+print(df[['level', 'category', 'anomaly', 'message', 'explanation']])
