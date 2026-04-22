@@ -2,7 +2,6 @@
 AI-Powered Network Log “Translator” 
 # AI Log Translator
 
-## Step 1
 - Project setup completed
 - Sample logs added
 - Basic log reader implemented
