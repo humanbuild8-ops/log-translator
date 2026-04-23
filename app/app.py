@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 from sklearn.ensemble import IsolationForest
 import time
 
@@ -47,7 +48,9 @@ def generate_explanation(message, category):
 # -------------------------
 logs = []
 
-with open('../data/sample_logs.txt', 'r') as file:
+file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'sample_logs.txt')
+
+with open(file_path, 'r') as file:
     for line in file:
         parts = line.strip().split()
 
